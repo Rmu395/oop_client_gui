@@ -44,13 +44,17 @@ public class ConnectionThread extends Thread {
 
     }
 
-    public void send(Message message) throws JsonProcessingException {
+    public void send(Message message) throws IOException {
         String rawMessage = new ObjectMapper()
                 .writeValueAsString(message);
         writer.println(rawMessage);
+
+        if (message.content.equals("/disconnect")) {
+            socket.close();
+        }
     }
 
-    public void login(String login) throws JsonProcessingException {
+    public void login(String login) throws IOException {
         Message message = new Message(MessageType.Login, login);
         clientName = login;
         send(message);

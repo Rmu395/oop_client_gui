@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.io.IOException;
+
 public class HelloController {
     public TextArea textArea;
     public TextField textFieldToNazwaWlasna;
@@ -15,7 +17,7 @@ public class HelloController {
     }
 
     @FXML
-    public void onSendPress() throws JsonProcessingException {
+    public void onSendPress() throws IOException {
         String message = textFieldToNazwaWlasna.getText();
         textArea.appendText( ClientReceiver.thread.clientName + ": " + message + "\n");
         textFieldToNazwaWlasna.clear();
