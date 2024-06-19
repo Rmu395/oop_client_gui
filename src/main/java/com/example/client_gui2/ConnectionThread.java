@@ -9,6 +9,7 @@ import java.net.Socket;
 public class ConnectionThread extends Thread {
     Socket socket;
     PrintWriter writer;
+    String clientName;
 
     public ConnectionThread(String address, int port) throws IOException {
         socket = new Socket(address, port);
@@ -51,6 +52,7 @@ public class ConnectionThread extends Thread {
 
     public void login(String login) throws JsonProcessingException {
         Message message = new Message(MessageType.Login, login);
+        clientName = login;
         send(message);
     }
 }

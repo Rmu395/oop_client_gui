@@ -17,13 +17,22 @@ public class HelloController {
     @FXML
     public void onSendPress() throws JsonProcessingException {
         String message = textFieldToNazwaWlasna.getText();
-        textArea.appendText(message + "\n");
+        textArea.appendText( ClientReceiver.thread.clientName + ": " + message + "\n");
         textFieldToNazwaWlasna.clear();
 
-        Message messageToSend = new Message(
-                MessageType.Broadcast,
-                message
-                );
+        Message messageToSend;
+        if (message.contains("/")) {
+            messageToSend = new Message(
+                    MessageType.Command,
+                    message
+            );
+        }
+        else  {
+            messageToSend = new Message(
+                    MessageType.Broadcast,
+                    message
+            );
+        }
         ClientReceiver.thread.send(messageToSend);
     }
 
